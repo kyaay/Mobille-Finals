@@ -1,3 +1,4 @@
+import 'package:bloc_mobile_finals/blocs/bloc_exports.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/recycle_bin_screen.dart';
@@ -36,6 +37,23 @@ class TasksDrawer extends StatelessWidget {
                 context,
                 TabsScreen.path,
               ),
+            ),
+            BlocBuilder<TasksBloc, TasksState>(
+              builder: (context, state) {
+                return GestureDetector(
+                  child: ListTile(
+                    leading: const Icon(Icons.folder_special),
+                    title: const Text('My Tasks'),
+                    trailing: Text(
+                      '${state.pendingTasks.length} | ${state.completedTasks.length}',
+                    ),
+                    onTap: () => Navigator.pushReplacementNamed(
+                      context,
+                      TabsScreen.path,
+                    ),
+                  ),
+                );
+              },
             ),
             const Divider(),
             ListTile(
