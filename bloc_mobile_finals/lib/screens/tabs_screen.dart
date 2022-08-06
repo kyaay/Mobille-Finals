@@ -17,7 +17,11 @@ class TabsScreen extends StatefulWidget {
 
 class _TabsScreenState extends State<TabsScreen> {
   final List<Map<String, dynamic>> _pageDetails = [
+<<<<<<< HEAD
     {'page': PendingTasksScreen(), 'title': 'Pending Tasks'},
+=======
+    {'page': const PendingTasksScreen(), 'title': 'Pending Tasks'},
+>>>>>>> main
     {'page': const CompletedTasksScreen(), 'title': 'Completed Tasks'},
     {'page': const FavoriteTasksScreen(), 'title': 'Favorite Tasks'},
   ];

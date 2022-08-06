@@ -19,6 +19,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     ));
   }
 
+<<<<<<< HEAD
   void _onUpdateTask(UpdateTask event, Emitter<TasksState> emit) {
     final state = this.state;
     final task = event.task;
@@ -29,6 +30,9 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
         : allTasks.insert(index, task.copyWith(isDone: false));
     emit(TasksState(allTasks: allTasks));
   }
+=======
+  void _onUpdateTask(UpdateTask event, Emitter<TasksState> emit) {}
+>>>>>>> main
 
   void _onDeleteTask(DeleteTask event, Emitter<TasksState> emit) {}
 }
