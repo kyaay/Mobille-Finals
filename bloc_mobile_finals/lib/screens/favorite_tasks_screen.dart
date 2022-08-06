@@ -20,7 +20,7 @@ class FavoriteTasksScreen extends StatelessWidget {
             children: [
               Center(
                 child: Chip(
-                  label: Text('${tasksList.length} Tasks'),
+                  label: Text('${state.favoriteTasks.length} Tasks'),
                 ),
               ),
               const SizedBox(height: 10),

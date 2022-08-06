@@ -1,7 +1,6 @@
-import 'package:bloc_mobile_finals/blocs/bloc_exports.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
+import '../blocs/bloc_exports.dart';
 import '../models/task.dart';
 import 'add_edit_task.dart';
 import 'popup_menu.dart';
@@ -11,25 +10,10 @@ class TaskTile extends StatelessWidget {
 
   final Task task;
 
-  void _removeOrDeleteTask(BuildContext ctx, Task task) {
+  void _removeOrDeleteTask(BuildContext context, Task task) {
     task.isDeleted!
-        ? ctx.read<TasksBloc>().add(DeleteTask(task: task))
-        : ctx.read<TasksBloc>().add(RemoveTask(task: task));
-  }
-
-  _editTask(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) => SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: AddEditTask(task: task),
-        ),
-      ),
-    );
+        ? context.read<TasksBloc>().add(DeleteTask(task: task))
+        : context.read<TasksBloc>().add(RemoveTask(task: task));
   }
 
   @override
@@ -72,26 +56,43 @@ class TaskTile extends StatelessWidget {
         Row(
           children: [
             Checkbox(
-              value: task.isDone,
-              onChanged: task.isDeleted == false
-                  ? (value) {
-                      context.read<TasksBloc>().add(UpdateTask(task: task));
-                    }
-                  : null,
-            ),
+                value: task.isDone,
+                onChanged: task.isDeleted == false
+                    ? (value) {
+                        context.read<TasksBloc>().add(UpdateTask(task: task));
+                      }
+                    : null),
             PopupMenu(
-              task: task,
-              editCallback: () {
-                Navigator.pop(context);
-                _editTask(context);
-              },
-              likeOrDislikeCallback: () {},
-              cancelOrDeleteCallback: () => _removeOrDeleteTask(context, task),
-              restoreTaskCallback: () => {},
-            ),
+                task: task,
+                cancelOrDeleteCallback: () =>
+                    _removeOrDeleteTask(context, task),
+                likeOrDislikeCallback: () => context
+                    .read<TasksBloc>()
+                    .add(MarkFavoriteOrUnfavoriteTask(task: task)),
+                editCallback: () {
+                  Navigator.pop(context);
+                  (context);
+                },
+                restoreTaskCallback: () {}),
           ],
         ),
       ],
     );
   }
 }
+
+
+  // _editTask(BuildContext context) {
+  //   showModalBottomSheet(
+  //     context: context,
+  //     isScrollControlled: true,
+  //     builder: (context) => SingleChildScrollView(
+  //       child: Container(
+  //         padding: EdgeInsets.only(
+  //           bottom: MediaQuery.of(context).viewInsets.bottom,
+  //         ),
+  //         child: AddEditTask(task: task),
+  //       ),
+  //     ),
+  //   );
+  // }
