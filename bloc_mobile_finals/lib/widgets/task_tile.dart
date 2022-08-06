@@ -16,6 +16,21 @@ class TaskTile extends StatelessWidget {
         : context.read<TasksBloc>().add(RemoveTask(task: task));
   }
 
+  _editTask(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: AddEditTask(task: task),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -63,36 +78,21 @@ class TaskTile extends StatelessWidget {
                       }
                     : null),
             PopupMenu(
-                task: task,
-                cancelOrDeleteCallback: () =>
-                    _removeOrDeleteTask(context, task),
-                likeOrDislikeCallback: () => context
-                    .read<TasksBloc>()
-                    .add(MarkFavoriteOrUnfavoriteTask(task: task)),
-                editCallback: () {
-                  Navigator.pop(context);
-                  (context);
-                },
-                restoreTaskCallback: () {}),
+              task: task,
+              editCallback: () {
+                Navigator.pop(context);
+                _editTask(context);
+              },
+              likeOrDislikeCallback: () => context
+                  .read<TasksBloc>()
+                  .add(MarkFavoriteOrUnfavoriteTask(task: task)),
+              cancelOrDeleteCallback: () => _removeOrDeleteTask(context, task),
+              restoreTaskCallback: () =>
+                  context.read<TasksBloc>().add(RestoreTask(task: task)),
+            ),
           ],
         ),
       ],
     );
   }
 }
-
-
-  // _editTask(BuildContext context) {
-  //   showModalBottomSheet(
-  //     context: context,
-  //     isScrollControlled: true,
-  //     builder: (context) => SingleChildScrollView(
-  //       child: Container(
-  //         padding: EdgeInsets.only(
-  //           bottom: MediaQuery.of(context).viewInsets.bottom,
-  //         ),
-  //         child: AddEditTask(task: task),
-  //       ),
-  //     ),
-  //   );
-  // }
