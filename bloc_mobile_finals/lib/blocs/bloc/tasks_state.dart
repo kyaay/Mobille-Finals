@@ -5,11 +5,13 @@ class TasksState extends Equatable {
   final List<Task> removedTasks;
   final List<Task> pendingTasks;
   final List<Task> completedTasks;
+  final List<Task> favoriteTasks;
   const TasksState({
     this.allTasks = const <Task>[],
     this.removedTasks = const <Task>[],
     this.pendingTasks = const <Task>[],
     this.completedTasks = const <Task>[],
+    this.favoriteTasks = const <Task>[],
   });
 
   @override
