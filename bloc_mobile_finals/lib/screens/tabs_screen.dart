@@ -45,7 +45,7 @@ class _TabsScreenState extends State<TabsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(_pageDetails[_selectedPageIndex]['title']),
+        title: Text(selectedPage['title']),
         actions: _selectedPageIndex == 0
             ? [
                 IconButton(
@@ -56,7 +56,7 @@ class _TabsScreenState extends State<TabsScreen> {
             : null,
       ),
       drawer: const TasksDrawer(),
-      body: _pageDetails[_selectedPageIndex]['pageName'],
+      body: selectedPage['page'],
       floatingActionButton: _selectedPageIndex == 0
           ? FloatingActionButton(
               onPressed: () => _addNewTask(context),
